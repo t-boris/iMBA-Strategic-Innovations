@@ -1,16 +1,56 @@
-# React + Vite
+# iMBA Strategic Innovations
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A study companion web app for the **Strategic Innovation** course in the iMBA program (University of Illinois). Browse lecture notes, look up key terms, and test your knowledge with quizzes.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Lecture Notes** -- organized by module with collapsible sections, key-point highlights, and interactive visuals (S-Curve explorer, Adoption Bell Curve, etc.)
+- **Glossary** -- searchable list of course terms with definitions, grouped by module
+- **Quiz** -- multiple-choice questions with difficulty levels (easy / medium / hard), score tracking, and answer explanations
+- **Dark / Light Theme** -- toggle between themes; preference is persisted
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19, Vite 8
+- Tailwind CSS 4
+- React Router 7
+- Recharts (interactive charts)
+- Lucide React (icons)
+- Firebase Hosting (deployment)
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Deployment
+
+The app is configured for Firebase Hosting. The production build outputs to `dist/`.
+
+```bash
+npm run build
+firebase deploy
+```
+
+## Project Structure
+
+```
+src/
+  components/     # Layout, InteractiveVisuals
+  context/        # ThemeContext (dark/light mode)
+  data/           # lectures, glossary, quiz question banks
+  pages/          # HomePage, LecturePage, GlossaryPage, QuizPage
+  App.jsx         # Router setup
+  main.jsx        # Entry point
+```
