@@ -1652,41 +1652,2088 @@ function IBMTimeline() {
   )
 }
 
+// =========================================================================
+//  MODULE 3: Markets for Technology, Open Innovation, Vertical Integration
+// =========================================================================
+
+// ----- M3-1a: Open vs Closed Innovation -----
+function OpenVsClosedInnovation() {
+  const [activeModel, setActiveModel] = useState('Closed Innovation')
+
+  const models = [
+    {
+      name: 'Closed Innovation',
+      color: C.orange,
+      desc: 'Ideas flow only within company. Internal R&D develops, tests, and brings to market.',
+      pros: ['Strong IP protection', 'Faster decision-making', 'Full value capture'],
+      cons: ['Higher R&D costs', 'Slower to market', 'Missed external ideas'],
+      metrics: [
+        { label: 'Speed', value: 2 },
+        { label: 'Cost Efficiency', value: 2 },
+        { label: 'Innovation Breadth', value: 2 },
+        { label: 'IP Control', value: 5 },
+      ]
+    },
+    {
+      name: 'Open Innovation',
+      color: C.blue,
+      desc: 'Ideas flow in AND out. Partner with external sources, share development, license innovations.',
+      pros: ['Lower R&D costs', 'Access to external talent', 'Multiple revenue streams'],
+      cons: ['IP fragmentation', 'Complex partnerships', 'Knowledge spillover risk'],
+      metrics: [
+        { label: 'Speed', value: 5 },
+        { label: 'Cost Efficiency', value: 4 },
+        { label: 'Innovation Breadth', value: 5 },
+        { label: 'IP Control', value: 2 },
+      ]
+    }
+  ]
+
+  const active = models.find(m => m.name === activeModel)
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Open vs Closed Innovation Models</p>
+      <p style={subStyle}>How ideas flow differently in closed vs open ecosystems</p>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+        {models.map(m => (
+          <button key={m.name}
+            onClick={() => setActiveModel(m.name)}
+            style={{
+              flex: 1, padding: '8px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              background: activeModel === m.name ? `${m.color}25` : `${m.color}08`,
+              outline: activeModel === m.name ? `2px solid ${m.color}` : 'none',
+              transition: 'all 0.2s'
+            }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: m.color }}>{m.name}</div>
+          </button>
+        ))}
+      </div>
+
+      {active && (
+        <>
+          <div style={{
+            padding: '10px 12px', borderRadius: 8, marginBottom: 12,
+            background: `${active.color}10`, border: `1px solid ${active.color}30`
+          }}>
+            <span style={{ fontSize: 11, color: 'var(--text-primary)' }}>{active.desc}</span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+            <div>
+              <div style={{ ...headingStyle, fontSize: 11, marginBottom: 6 }}>Strengths</div>
+              <ul style={{ fontSize: 10, margin: 0, paddingLeft: 16, color: 'var(--text-primary)' }}>
+                {active.pros.map((p, i) => <li key={i}>{p}</li>)}
+              </ul>
+            </div>
+            <div>
+              <div style={{ ...headingStyle, fontSize: 11, marginBottom: 6 }}>Challenges</div>
+              <ul style={{ fontSize: 10, margin: 0, paddingLeft: 16, color: 'var(--text-primary)' }}>
+                {active.cons.map((c, i) => <li key={i}>{c}</li>)}
+              </ul>
+            </div>
+          </div>
+
+          <div style={{
+            padding: '10px 12px', borderRadius: 8, background: 'var(--bg-secondary)',
+            border: '1px solid var(--border-color)'
+          }}>
+            <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>
+              Key Metrics
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, fontSize: 9 }}>
+              {active.metrics.map(m => (
+                <div key={m.label} style={{ textAlign: 'center' }}>
+                  <div style={{ color: 'var(--text-sec)', marginBottom: 4 }}>{m.label}</div>
+                  <div style={{
+                    height: '4px', background: 'var(--border-color)', borderRadius: 2, marginBottom: 4,
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{
+                      height: '100%', width: `${(m.value / 5) * 100}%`, background: active.color,
+                      borderRadius: 2, transition: 'width 0.3s'
+                    }} />
+                  </div>
+                  <div style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{m.value}/5</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// ----- M3-2a: Technology Market Flow -----
+function TechnologyMarketFlow() {
+  const [activeType, setActiveType] = useState('examples')
+
+  const examples = [
+    { name: 'ARM', revenue: 65, desc: 'CPU design licensing' },
+    { name: 'Qualcomm', revenue: 80, desc: 'Patent licensing' },
+    { name: 'IBM', revenue: 55, desc: 'Patent portfolio licensing' },
+    { name: 'Dolby', revenue: 45, desc: 'Audio/visual technology' }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Technology Market Flow</p>
+      <p style={subStyle}>How technology is licensed and monetized separate from end products</p>
+
+      <div style={{
+        padding: '10px 12px', borderRadius: 8, marginBottom: 12,
+        background: `${C.purple}10`, border: `1px solid ${C.purple}30`
+      }}>
+        <div style={{ fontSize: 10, fontWeight: 600, color: C.purple, marginBottom: 6 }}>Flow Path</div>
+        <div style={{ fontSize: 10, color: 'var(--text-primary)', fontFamily: 'monospace' }}>
+          Innovator → (Patent/License) → Technology Market → (License/Acquire) → Commercializer → Product Market → Consumer
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ ...headingStyle, fontSize: 11, marginBottom: 8 }}>Annual Licensing Revenue Examples</div>
+        <ResponsiveContainer width="100%" height={200}>
+          <BarChart data={examples} layout="vertical" margin={{ top: 5, right: 30, left: 60, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+            <XAxis type="number" tick={labelStyle} label={{ value: '$ Millions', position: 'insideBottomRight', offset: -5, style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+            <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: 'var(--text-primary)' }} />
+            <Tooltip contentStyle={tooltipStyle} formatter={v => `$${Math.round(v)}M`} />
+            <Bar dataKey="revenue" radius={[0, 8, 8, 0]} fill={C.purple} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div style={{
+        padding: '8px 12px', borderRadius: 8, background: `${C.gain}10`,
+        border: `1px solid ${C.gain}30`, fontSize: 10, color: 'var(--text-primary)'
+      }}>
+        <strong>Key Insight:</strong> Companies can profit by licensing technology without manufacturing products, enabling faster market entry and lower capital requirements for commercializers.
+      </div>
+    </div>
+  )
+}
+
+// ----- M3-3a: Value Chain Explorer -----
+function ValueChainExplorer() {
+  const [integrationLevel, setIntegrationLevel] = useState(50)
+
+  const activities = [
+    { name: 'R&D', desc: 'Research & Development' },
+    { name: 'Design', desc: 'Product Design' },
+    { name: 'Manufacturing', desc: 'Production' },
+    { name: 'Marketing', desc: 'Sales & Marketing' },
+    { name: 'Distribution', desc: 'Logistics' },
+    { name: 'Retail', desc: 'Customer Interface' }
+  ]
+
+  const isInhouse = (idx) => {
+    const threshold = 50 + (idx - 2.5) * 15
+    return integrationLevel > threshold
+  }
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Value Chain Integration Explorer</p>
+      <p style={subStyle}>Adjust the slider to see how firms choose what to do in-house vs outsource</p>
+
+      <label style={{ fontSize: 11, color: 'var(--text-primary)', display: 'block', marginBottom: 16 }}>
+        Integration Level: <strong>{integrationLevel}%</strong>
+        <input type="range" min="0" max="100" step="5" value={integrationLevel}
+          onChange={e => setIntegrationLevel(+e.target.value)}
+          style={{ display: 'block', width: '100%', accentColor: C.teal, marginTop: 4 }} />
+      </label>
+
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr', gap: 6, marginBottom: 12,
+        padding: '10px', borderRadius: 8, background: 'var(--bg-secondary)'
+      }}>
+        {activities.map((act, idx) => (
+          <div key={act.name} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <div style={{ width: 60, fontSize: 10, fontWeight: 600, color: 'var(--text-primary)' }}>{act.name}</div>
+            <div style={{
+              flex: 1, height: 24, background: isInhouse(idx) ? `${C.teal}30` : `${C.slate}15`,
+              border: `1px solid ${isInhouse(idx) ? C.teal : C.slate}`,
+              borderRadius: 4, display: 'flex', alignItems: 'center', paddingLeft: 6
+            }}>
+              <span style={{ fontSize: 9, color: 'var(--text-primary)', fontWeight: 600 }}>
+                {isInhouse(idx) ? 'In-House' : 'Outsourced'}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        padding: '8px 12px', borderRadius: 8, background: `${C.orange}10`,
+        border: `1px solid ${C.orange}30`, fontSize: 9, color: 'var(--text-primary)'
+      }}>
+        <strong>Example:</strong> Big Pharma: In-house R&D, Design, Manufacturing. Specialized Biotech: In-house R&D, outsource everything else.
+      </div>
+    </div>
+  )
+}
+
+// ----- M3-4a: Apple vs Samsung -----
+function AppleVsSamsung() {
+  const activities = [
+    { name: 'CPU Design', apple: 'In-House', samsung: 'In-House', critical: true },
+    { name: 'OS', apple: 'In-House', samsung: 'In-House', critical: true },
+    { name: 'Hardware Design', apple: 'In-House', samsung: 'In-House', critical: false },
+    { name: 'Memory/Display', apple: 'Partner', samsung: 'In-House', critical: false },
+    { name: 'Chip Manufacturing', apple: 'TSMC', samsung: 'Samsung Foundry', critical: true },
+    { name: 'Assembly', apple: 'Foxconn', samsung: 'Samsung Electro-Mechanics', critical: false },
+    { name: 'Retail', apple: 'Apple Stores', samsung: 'Partner Retailers', critical: false }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Apple vs Samsung: Strategic Choices</p>
+      <p style={subStyle}>Different approaches to the same value chain</p>
+
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{
+          width: '100%', borderCollapse: 'collapse', fontSize: 10,
+          background: 'var(--bg-secondary)', borderRadius: 8, overflow: 'hidden'
+        }}>
+          <thead>
+            <tr style={{ borderBottom: '2px solid var(--border-color)' }}>
+              <th style={{ padding: '8px', textAlign: 'left', fontWeight: 700, color: 'var(--text-primary)' }}>Activity</th>
+              <th style={{ padding: '8px', textAlign: 'left', fontWeight: 700, color: C.blue }}>Apple</th>
+              <th style={{ padding: '8px', textAlign: 'left', fontWeight: 700, color: C.orange }}>Samsung</th>
+            </tr>
+          </thead>
+          <tbody>
+            {activities.map((act, i) => (
+              <tr key={act.name} style={{
+                borderBottom: '1px solid var(--border-color)',
+                background: act.critical ? 'var(--bg-card)' : 'transparent'
+              }}>
+                <td style={{
+                  padding: '8px', color: 'var(--text-primary)',
+                  fontWeight: act.critical ? 700 : 600
+                }}>
+                  {act.name}
+                  {act.critical && <span style={{ color: C.rose, marginLeft: 4 }}>★</span>}
+                </td>
+                <td style={{ padding: '8px', color: C.blue }}>{act.apple}</td>
+                <td style={{ padding: '8px', color: C.orange }}>{act.samsung}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{
+        marginTop: 12, padding: '8px 12px', borderRadius: 8,
+        background: `${C.rose}10`, border: `1px solid ${C.rose}30`, fontSize: 9, color: 'var(--text-primary)'
+      }}>
+        <strong>★ Critical Difference:</strong> Apple owns iOS (vertical integration of software). Samsung makes Android phones but doesn't control the OS. This explains Apple's margin advantage and ecosystem lock-in.
+      </div>
+    </div>
+  )
+}
+
+// ----- M3-5a: Value Capture Mechanisms -----
+function ValueCaptureMechanisms() {
+  const [expanded, setExpanded] = useState(null)
+
+  const mechanisms = [
+    {
+      category: 'Legal Mechanisms',
+      items: [
+        { name: 'Patents', desc: 'Exclusive right to make/sell for 20 years. Works best for discrete innovations.' },
+        { name: 'Copyrights', desc: 'Protect creative works like software, music, movies. Automatic protection.' },
+        { name: 'Trade Secrets', desc: 'Keep key info confidential (e.g., Coca-Cola formula). No time limit.' },
+        { name: 'NDAs', desc: 'Contractual protection for shared information during partnerships.' },
+        { name: 'Licensing', desc: 'Control who can use your IP and on what terms. Generate revenue.' }
+      ],
+      color: C.blue
+    },
+    {
+      category: 'Strategic Mechanisms',
+      items: [
+        { name: 'First-Mover Advantage', desc: 'Get to market first, build brand, lock in customers before competitors.' },
+        { name: 'Brand', desc: 'Customer loyalty and premium pricing power. Valuable intangible asset.' },
+        { name: 'Competencies', desc: 'Hard-to-replicate skills and knowledge. Build over time.' },
+        { name: 'Complementary Assets', desc: 'Need distribution, manufacturing, or other assets. Creates barriers to entry.' },
+        { name: 'Network Effects', desc: 'Product value increases as more users adopt. Self-reinforcing advantage.' }
+      ],
+      color: C.purple
+    }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Value Capture Mechanisms</p>
+      <p style={subStyle}>How firms protect profits from innovation</p>
+
+      {mechanisms.map((mech, catIdx) => (
+        <div key={mech.category} style={{ marginBottom: 12 }}>
+          <div style={{
+            fontSize: 11, fontWeight: 700, color: mech.color, marginBottom: 6,
+            paddingBottom: 4, borderBottom: `2px solid ${mech.color}40`
+          }}>
+            {mech.category}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 4 }}>
+            {mech.items.map((item, itemIdx) => (
+              <button key={item.name}
+                onClick={() => setExpanded(expanded === `${catIdx}-${itemIdx}` ? null : `${catIdx}-${itemIdx}`)}
+                style={{
+                  padding: '8px 10px', borderRadius: 6, border: 'none', cursor: 'pointer',
+                  background: expanded === `${catIdx}-${itemIdx}` ? `${mech.color}20` : `${mech.color}08`,
+                  textAlign: 'left', transition: 'all 0.2s'
+                }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: mech.color }}>{item.name}</div>
+                {expanded === `${catIdx}-${itemIdx}` && (
+                  <div style={{ fontSize: 9, color: 'var(--text-primary)', marginTop: 6, paddingTop: 6, borderTop: `1px solid ${mech.color}30` }}>
+                    {item.desc}
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// ----- M3-6a: IP Economics -----
+function IPEconomics() {
+  const [rdInvestment, setRdInvestment] = useState(100)
+  const [unitsSold, setUnitsSold] = useState(50)
+
+  const examples = [
+    { name: 'Windows', rd: 100, marginal: 0 },
+    { name: 'Apple Silicon', rd: 100, marginal: 45 },
+    { name: 'Pharmaceutical', rd: 200, marginal: 10 }
+  ]
+
+  const costPerUnit = (rdInvestment / unitsSold) + 10
+  const data = [
+    { units: 10, fixedCost: rdInvestment / 10 + 10, marginalCost: 10 },
+    { units: 25, fixedCost: rdInvestment / 25 + 10, marginalCost: 10 },
+    { units: unitsSold, fixedCost: rdInvestment / unitsSold + 10, marginalCost: 10 },
+    { units: 100, fixedCost: rdInvestment / 100 + 10, marginalCost: 10 }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>IP Economics: R&D Investment vs Scale</p>
+      <p style={subStyle}>More units sold → lower cost per unit → better value capture</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          R&D Investment: <strong>${rdInvestment}M</strong>
+          <input type="range" min="50" max="300" step="50" value={rdInvestment}
+            onChange={e => setRdInvestment(+e.target.value)}
+            style={{ display: 'block', width: '100%', accentColor: C.blue, marginTop: 4 }} />
+        </label>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          Units Sold: <strong>{unitsSold}M</strong>
+          <input type="range" min="10" max="200" step="10" value={unitsSold}
+            onChange={e => setUnitsSold(+e.target.value)}
+            style={{ display: 'block', width: '100%', accentColor: C.purple, marginTop: 4 }} />
+        </label>
+      </div>
+
+      <div style={{
+        padding: '10px 12px', borderRadius: 8, marginBottom: 12,
+        background: `${C.gain}10`, border: `1px solid ${C.gain}30`
+      }}>
+        <div style={{ fontSize: 10, fontWeight: 700, color: C.gain, marginBottom: 4 }}>Cost Per Unit</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)' }}>
+          ${Math.round(costPerUnit * 100) / 100}
+        </div>
+        <div style={{ fontSize: 9, color: 'var(--text-sec)', marginTop: 4 }}>
+          = (R&D ${rdInvestment}M ÷ {unitsSold}M units) + Marginal cost $10
+        </div>
+      </div>
+
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={examples} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="name" tick={labelStyle} />
+          <YAxis tick={labelStyle} label={{ value: 'Cost $M', angle: -90, position: 'insideLeft', style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} formatter={v => `$${Math.round(v)}M`} />
+          <Bar dataKey="rd" name="R&D" stackId="a" fill={C.blue} />
+          <Bar dataKey="marginal" name="Marginal/Unit" stackId="a" fill={C.slate} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
+// ----- M3-7a: Discrete vs Complex Patents -----
+function DiscreteVsComplex() {
+  const [activeType, setActiveType] = useState('discrete')
+
+  const types = [
+    {
+      name: 'Discrete',
+      example: 'New Drug (e.g., Lipitor)',
+      patents: 1,
+      owners: 1,
+      litigation: 'Low',
+      effectiveness: 'Very High',
+      desc: 'One patent = one innovation. Clear ownership. Works until patent expires.'
+    },
+    {
+      name: 'Complex',
+      example: 'Smartphone (e.g., iPhone)',
+      patents: 250,
+      owners: 15,
+      litigation: 'Very High',
+      effectiveness: 'Moderate',
+      desc: 'Many patents from different companies. Patent thicket. Licensing required from many parties.'
+    }
+  ]
+
+  const active = types.find(t => t.name === activeType)
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Discrete vs Complex Technology Patent Landscapes</p>
+      <p style={subStyle}>Different industries face different IP challenges</p>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+        {types.map(t => (
+          <button key={t.name}
+            onClick={() => setActiveType(t.name)}
+            style={{
+              flex: 1, padding: '8px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              background: activeType === t.name ? `${C.indigo}25` : `${C.indigo}08`,
+              outline: activeType === t.name ? `2px solid ${C.indigo}` : 'none',
+              transition: 'all 0.2s'
+            }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: C.indigo }}>{t.name}</div>
+            <div style={{ fontSize: 9, color: 'var(--text-sec)' }}>({t.example})</div>
+          </button>
+        ))}
+      </div>
+
+      {active && (
+        <>
+          <div style={{
+            padding: '10px 12px', borderRadius: 8, marginBottom: 12,
+            background: `${C.indigo}10`, border: `1px solid ${C.indigo}30`
+          }}>
+            <span style={{ fontSize: 11, color: 'var(--text-primary)' }}>{active.desc}</span>
+          </div>
+
+          <div style={{
+            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, padding: '12px', borderRadius: 8,
+            background: 'var(--bg-secondary)', border: '1px solid var(--border-color)'
+          }}>
+            <div>
+              <div style={{ fontSize: 9, color: 'var(--text-sec)', marginBottom: 4 }}>Patents Involved</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{active.patents}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 9, color: 'var(--text-sec)', marginBottom: 4 }}>Unique Patent Owners</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{active.owners}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 9, color: 'var(--text-sec)', marginBottom: 4 }}>Litigation Risk</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: activeType === 'discrete' ? C.gain : C.loss }}>
+                {active.litigation}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 9, color: 'var(--text-sec)', marginBottom: 4 }}>IP Protection Effectiveness</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: activeType === 'discrete' ? C.gain : C.orange }}>
+                {active.effectiveness}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// ----- M3-8a: Tech vs Product Market Decision -----
+function TechVsProductMarket() {
+  const [breadth, setBreadth] = useState(50)
+  const [integrationCost, setIntegrationCost] = useState(50)
+  const [specializedAssets, setSpecializedAssets] = useState(50)
+
+  const recommendTechMarket = (breadth > 60 && integrationCost > 60) || specializedAssets > 70
+  const recommendation = recommendTechMarket ? 'Technology Market (License)' : 'Product Market (Integrate)'
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Tech Market vs Product Market Strategy</p>
+      <p style={subStyle}>Choose licensing or integration based on your competitive position</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12, marginBottom: 16 }}>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          Breadth of Applications: <strong>{breadth}</strong>
+          <input type="range" min="0" max="100" step="10" value={breadth}
+            onChange={e => setBreadth(+e.target.value)}
+            style={{ display: 'block', width: '100%', accentColor: C.blue, marginTop: 4 }} />
+          <div style={{ fontSize: 9, color: 'var(--text-sec)', marginTop: 2 }}>
+            {breadth < 40 ? 'Narrow - specialized use cases' : breadth > 60 ? 'Broad - multiple industries' : 'Moderate - several applications'}
+          </div>
+        </label>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          Cost to Integrate: <strong>{integrationCost}</strong>
+          <input type="range" min="0" max="100" step="10" value={integrationCost}
+            onChange={e => setIntegrationCost(+e.target.value)}
+            style={{ display: 'block', width: '100%', accentColor: C.purple, marginTop: 4 }} />
+          <div style={{ fontSize: 9, color: 'var(--text-sec)', marginTop: 2 }}>
+            {integrationCost < 40 ? 'Low - easy to commercialize' : integrationCost > 60 ? 'High - expensive integration' : 'Moderate - requires investment'}
+          </div>
+        </label>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          Specialized Assets Needed: <strong>{specializedAssets}</strong>
+          <input type="range" min="0" max="100" step="10" value={specializedAssets}
+            onChange={e => setSpecializedAssets(+e.target.value)}
+            style={{ display: 'block', width: '100%', accentColor: C.orange, marginTop: 4 }} />
+          <div style={{ fontSize: 9, color: 'var(--text-sec)', marginTop: 2 }}>
+            {specializedAssets < 40 ? 'Few - general capabilities' : specializedAssets > 60 ? 'Many - unique competencies required' : 'Some - specialized resources'}
+          </div>
+        </label>
+      </div>
+
+      <div style={{
+        padding: '12px', borderRadius: 8, marginBottom: 12,
+        background: recommendTechMarket ? `${C.blue}15` : `${C.gain}15`,
+        border: `2px solid ${recommendTechMarket ? C.blue : C.gain}`
+      }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: recommendTechMarket ? C.blue : C.gain, marginBottom: 4 }}>
+          Recommended Strategy
+        </div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>
+          {recommendation}
+        </div>
+        <div style={{ fontSize: 10, color: 'var(--text-sec)' }}>
+          {recommendTechMarket
+            ? 'Your technology has broad applications or integration is expensive. License to others and capture value through licensing revenue.'
+            : 'Your technology has focused applications and you can integrate. Forward integrate to compete directly and capture full value chain.'}
+        </div>
+      </div>
+
+      <div style={{
+        padding: '10px 12px', borderRadius: 8,
+        background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', fontSize: 9, color: 'var(--text-primary)'
+      }}>
+        <strong>Example:</strong> ARM chose technology market (broad processor applications, expensive to manufacture). Apple chose product market (integrated design and manufacturing for differentiation).
+      </div>
+    </div>
+  )
+}
+
+// ----- M3-9a: Moderna vs BioNTech -----
+function ModernaVsBiontech() {
+  const strategies = [
+    {
+      company: 'Moderna',
+      founded: 2010,
+      capital: '$2.7B',
+      approach: 'Vertical Integration',
+      outcome: 'Developed COVID vaccine independently',
+      timeline: [
+        { year: 2010, event: 'Founded' },
+        { year: 2013, event: 'Series A funding' },
+        { year: 2018, event: 'Went public' },
+        { year: 2020, event: 'COVID vaccine development' },
+        { year: 2023, event: 'Independent manufacturing' }
+      ],
+      color: C.blue
+    },
+    {
+      company: 'BioNTech',
+      founded: 2008,
+      capital: '$1.3B',
+      approach: 'Partnership Model',
+      outcome: 'COVID vaccine via Pfizer partnership',
+      timeline: [
+        { year: 2008, event: 'Founded' },
+        { year: 2020, event: 'Pfizer partnership announced' },
+        { year: 2020, event: 'Rapid vaccine development' },
+        { year: 2021, event: 'FDA approval' },
+        { year: 2023, event: 'Pfizer manufactures' }
+      ],
+      color: C.purple
+    }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Moderna vs BioNTech: Different Paths to Success</p>
+      <p style={subStyle}>Integration vs Partnership in the race for COVID vaccines</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {strategies.map(strat => (
+          <div key={strat.company} style={{
+            padding: '12px', borderRadius: 8, background: `${strat.color}10`,
+            border: `2px solid ${strat.color}`
+          }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: strat.color, marginBottom: 8 }}>
+              {strat.company}
+            </div>
+            <div style={{ fontSize: 10, marginBottom: 8, color: 'var(--text-primary)' }}>
+              <div><strong>Founded:</strong> {strat.founded}</div>
+              <div><strong>Capital Raised:</strong> {strat.capital}</div>
+              <div><strong>Strategy:</strong> {strat.approach}</div>
+              <div style={{ marginTop: 6, color: 'var(--text-sec)' }}>{strat.outcome}</div>
+            </div>
+            <div style={{
+              padding: '8px', borderRadius: 6, background: 'var(--bg-card)',
+              border: `1px solid ${strat.color}30`, fontSize: 9
+            }}>
+              {strat.timeline.map((t, i) => (
+                <div key={i} style={{
+                  display: 'flex', gap: 8, paddingBottom: i < strat.timeline.length - 1 ? 6 : 0,
+                  borderBottom: i < strat.timeline.length - 1 ? `1px solid ${strat.color}15` : 'none',
+                  marginBottom: i < strat.timeline.length - 1 ? 6 : 0
+                }}>
+                  <div style={{ fontWeight: 700, color: strat.color, minWidth: 28 }}>{t.year}</div>
+                  <div style={{ color: 'var(--text-sec)' }}>{t.event}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ----- M3-10a: Module 3 Concept Map -----
+function Module3ConceptMap() {
+  const [highlighted, setHighlighted] = useState(null)
+
+  const concepts = [
+    { id: 'open-innovation', label: 'Open Innovation', color: C.purple, x: 50, y: 20 },
+    { id: 'tech-market', label: 'Markets for Tech', color: C.blue, x: 80, y: 35 },
+    { id: 'vertical-integration', label: 'Vertical Integration', color: C.orange, x: 20, y: 35 },
+    { id: 'ip-patents', label: 'IP & Patents', color: C.rose, x: 15, y: 65 },
+    { id: 'make-buy-sell', label: 'Make/Buy/Sell', color: C.teal, x: 85, y: 65 },
+    { id: 'value-chain', label: 'Value Chain', color: C.emerald, x: 50, y: 80 }
+  ]
+
+  const connections = [
+    { from: 'open-innovation', to: 'tech-market' },
+    { from: 'open-innovation', to: 'value-chain' },
+    { from: 'tech-market', to: 'make-buy-sell' },
+    { from: 'vertical-integration', to: 'value-chain' },
+    { from: 'ip-patents', to: 'open-innovation' },
+    { from: 'ip-patents', to: 'tech-market' },
+    { from: 'make-buy-sell', to: 'value-chain' }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Module 3 Concept Map</p>
+      <p style={subStyle}>How innovation strategy concepts connect</p>
+
+      <div style={{
+        position: 'relative', width: '100%', height: 300, background: 'var(--bg-secondary)',
+        borderRadius: 8, border: '1px solid var(--border-color)', marginBottom: 12,
+        display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center'
+      }}>
+        <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+          {connections.map((conn, i) => {
+            const from = concepts.find(c => c.id === conn.from)
+            const to = concepts.find(c => c.id === conn.to)
+            if (!from || !to) return null
+            const x1 = (from.x / 100) * 400
+            const y1 = (from.y / 100) * 300
+            const x2 = (to.x / 100) * 400
+            const y2 = (to.y / 100) * 300
+            return (
+              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+                stroke={highlighted === conn.from || highlighted === conn.to ? C.blue : 'var(--border-color)'}
+                strokeWidth={highlighted === conn.from || highlighted === conn.to ? 2 : 1}
+                opacity={highlighted === null || highlighted === conn.from || highlighted === conn.to ? 1 : 0.2}
+                style={{ transition: 'all 0.2s' }} />
+            )
+          })}
+        </svg>
+        {concepts.map(concept => (
+          <button key={concept.id}
+            onMouseEnter={() => setHighlighted(concept.id)}
+            onMouseLeave={() => setHighlighted(null)}
+            style={{
+              position: 'absolute',
+              left: `${concept.x}%`,
+              top: `${concept.y}%`,
+              transform: 'translate(-50%, -50%)',
+              padding: '8px 12px', borderRadius: 20, border: 'none', cursor: 'pointer',
+              background: highlighted === concept.id ? `${concept.color}` : `${concept.color}30`,
+              color: highlighted === concept.id ? 'white' : concept.color,
+              fontWeight: 700, fontSize: 9, textAlign: 'center', maxWidth: 80,
+              whiteSpace: 'normal', transition: 'all 0.2s',
+              boxShadow: highlighted === concept.id ? `0 4px 12px ${concept.color}40` : 'none'
+            }}>
+            {concept.label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{
+        display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6, fontSize: 9
+      }}>
+        {concepts.map(c => (
+          <div key={c.id} style={{
+            padding: '6px 8px', borderRadius: 6,
+            background: `${c.color}15`, border: `1px solid ${c.color}40`,
+            color: 'var(--text-primary)'
+          }}>
+            <strong style={{ color: c.color }}>{c.label}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// =========================================================================
+//  NEW INTERACTIVE COMPONENTS — Filling gaps across all lectures
+// =========================================================================
+
+// ----- 1-1: Three Key Drivers Feedback Loop -----
+function InnovationDriversLoop() {
+  const [activeDriver, setActiveDriver] = useState(null)
+
+  const drivers = [
+    {
+      name: 'Technology Advance',
+      color: C.blue,
+      desc: 'How fast the underlying technology improves performance. Drives down from fundamental R&D, experimentation, and breakthroughs.',
+      next: 'Firms Enter'
+    },
+    {
+      name: 'Firms Enter',
+      color: C.orange,
+      desc: 'Companies decide to invest and enter the market based on technology maturity. More entrants accelerate development and build infrastructure.',
+      next: 'Customers Adopt'
+    },
+    {
+      name: 'Customers Adopt',
+      color: C.gain,
+      desc: 'Consumers adopt based on product quality, price, and ecosystem readiness. Adoption creates demand that attracts more firms and R&D investment.',
+      next: 'Technology Advance'
+    }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Innovation Life Cycle: Feedback Loop</p>
+      <p style={subStyle}>Three interconnected drivers form a self-reinforcing cycle</p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {drivers.map((d, i) => (
+          <div key={d.name}>
+            <button
+              onClick={() => setActiveDriver(activeDriver === d.name ? null : d.name)}
+              style={{
+                width: '100%', textAlign: 'left', padding: '10px 14px', borderRadius: 8,
+                border: 'none', cursor: 'pointer',
+                background: activeDriver === d.name ? `${d.color}20` : `${d.color}08`,
+                outline: activeDriver === d.name ? `2px solid ${d.color}` : 'none',
+                transition: 'all 0.2s'
+              }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{
+                  width: 24, height: 24, borderRadius: '50%', background: `${d.color}25`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 12, fontWeight: 800, color: d.color, flexShrink: 0
+                }}>{i + 1}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-primary)' }}>{d.name}</div>
+              </div>
+              {activeDriver === d.name && (
+                <div style={{ fontSize: 10, color: 'var(--text-primary)', marginTop: 8, paddingLeft: 34 }}>
+                  {d.desc}
+                </div>
+              )}
+            </button>
+            {i < drivers.length - 1 && (
+              <div style={{ textAlign: 'center', fontSize: 14, color: 'var(--text-sec)', padding: '2px 0' }}>↓</div>
+            )}
+          </div>
+        ))}
+        <div style={{ textAlign: 'center', fontSize: 10, color: C.purple, fontWeight: 600, padding: '4px 0' }}>
+          ↻ Cycle repeats — each round accelerates the next
+        </div>
+      </div>
+
+      <div style={{ fontSize: 10, color: 'var(--text-sec)', marginTop: 10, textAlign: 'center', fontStyle: 'italic' }}>
+        Technology matures → firms invest → customers adopt → more firms enter → competition accelerates development
+      </div>
+    </div>
+  )
+}
+
+// ----- 1-2: Historical PLC Comparison -----
+function HistoricalPLCChart() {
+  const [selectedProducts, setSelectedProducts] = useState(['Autos', 'Color TV', 'Cell Phones'])
+
+  const products = {
+    'Autos': { color: C.blue, takeoff: 1915, peak: 1970, data: [
+      { yr: 1900, v: 2 }, { yr: 1910, v: 5 }, { yr: 1915, v: 15 }, { yr: 1920, v: 30 },
+      { yr: 1930, v: 55 }, { yr: 1950, v: 70 }, { yr: 1970, v: 90 }, { yr: 1990, v: 85 }
+    ]},
+    'Radio': { color: C.orange, takeoff: 1925, peak: 1945, data: [
+      { yr: 1920, v: 1 }, { yr: 1925, v: 15 }, { yr: 1930, v: 40 }, { yr: 1935, v: 60 },
+      { yr: 1940, v: 75 }, { yr: 1945, v: 90 }, { yr: 1955, v: 85 }, { yr: 1970, v: 70 }
+    ]},
+    'Color TV': { color: C.purple, takeoff: 1968, peak: 1990, data: [
+      { yr: 1960, v: 1 }, { yr: 1965, v: 5 }, { yr: 1968, v: 15 }, { yr: 1975, v: 50 },
+      { yr: 1980, v: 70 }, { yr: 1990, v: 95 }, { yr: 2000, v: 90 }
+    ]},
+    'Cell Phones': { color: C.gain, takeoff: 1993, peak: 2010, data: [
+      { yr: 1985, v: 1 }, { yr: 1990, v: 3 }, { yr: 1993, v: 12 }, { yr: 1996, v: 35 },
+      { yr: 2000, v: 55 }, { yr: 2005, v: 75 }, { yr: 2010, v: 92 }
+    ]},
+    'Internet': { color: C.teal, takeoff: 1995, peak: 2015, data: [
+      { yr: 1993, v: 2 }, { yr: 1995, v: 10 }, { yr: 1998, v: 30 }, { yr: 2000, v: 45 },
+      { yr: 2003, v: 55 }, { yr: 2007, v: 70 }, { yr: 2010, v: 80 }, { yr: 2015, v: 90 }
+    ]}
+  }
+
+  const toggle = name => {
+    setSelectedProducts(prev =>
+      prev.includes(name) ? prev.filter(p => p !== name) : [...prev, name]
+    )
+  }
+
+  // Merge all selected data onto common year axis
+  const allYears = new Set()
+  selectedProducts.forEach(p => products[p].data.forEach(d => allYears.add(d.yr)))
+  const chartData = [...allYears].sort((a, b) => a - b).map(yr => {
+    const point = { yr }
+    selectedProducts.forEach(p => {
+      const d = products[p].data
+      const exact = d.find(x => x.yr === yr)
+      if (exact) point[p] = exact.v
+    })
+    return point
+  })
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Historical Product Life Cycles</p>
+      <p style={subStyle}>Compare adoption curves of major innovations. Click to toggle products.</p>
+
+      <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
+        {Object.entries(products).map(([name, prod]) => (
+          <button key={name} onClick={() => toggle(name)}
+            style={{
+              padding: '4px 10px', borderRadius: 6, border: 'none', cursor: 'pointer',
+              fontSize: 10, fontWeight: 600,
+              background: selectedProducts.includes(name) ? `${prod.color}25` : 'var(--bg-secondary)',
+              color: selectedProducts.includes(name) ? prod.color : 'var(--text-sec)',
+              outline: selectedProducts.includes(name) ? `2px solid ${prod.color}` : 'none',
+            }}>{name}</button>
+        ))}
+      </div>
+
+      <ResponsiveContainer width="100%" height={240}>
+        <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="yr" tick={labelStyle} />
+          <YAxis tick={labelStyle} domain={[0, 100]} label={{ value: '% Households', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} />
+          {selectedProducts.map(name => (
+            <Line key={name} type="monotone" dataKey={name} stroke={products[name].color}
+              strokeWidth={2} dot={{ r: 3 }} connectNulls />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
+
+      <div style={{ fontSize: 10, color: 'var(--text-sec)', marginTop: 6, textAlign: 'center', fontStyle: 'italic' }}>
+        Internet is the notable exception with nearly linear adoption. All others follow S-curve patterns.
+      </div>
+    </div>
+  )
+}
+
+// ----- 1-2: PLC-Adoption Correlation -----
+function PLCAdoptionMapping() {
+  const [activeStage, setActiveStage] = useState(null)
+
+  const stages = [
+    { plcStage: 'Introduction', adopters: 'Innovators + Early Adopters', pct: '16%', color: C.purple,
+      desc: 'Low sales, product is new. Tech enthusiasts and visionaries willing to accept imperfect products.' },
+    { plcStage: 'Growth', adopters: 'Early Majority', pct: '34%', color: C.gain,
+      desc: 'Explosive sales increase. Pragmatists who need proven Product-Market Fit adopt now.' },
+    { plcStage: 'Maturity', adopters: 'Late Majority', pct: '34%', color: C.orange,
+      desc: 'Sales plateau. Conservatives adopt because majority already has. Price competition intensifies.' },
+    { plcStage: 'Decline', adopters: 'Laggards', pct: '16%', color: C.loss,
+      desc: 'Sales fall. Skeptics finally adopt (or never do). Product faces obsolescence from next innovation.' }
+  ]
+
+  const barData = stages.map(s => ({
+    name: s.plcStage,
+    value: parseInt(s.pct),
+    color: s.color
+  }))
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>PLC ↔ Adoption Curve Correlation</p>
+      <p style={subStyle}>Each PLC stage maps to a specific adopter category</p>
+
+      <ResponsiveContainer width="100%" height={160}>
+        <BarChart data={barData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="name" tick={{ fontSize: 9, fill: 'var(--text-sec)' }} />
+          <YAxis tick={labelStyle} label={{ value: '% Market', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} formatter={v => [`${v}%`, 'Share']} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {barData.map((d, i) => <Cell key={i} fill={d.color} />)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
+        {stages.map(s => (
+          <button key={s.plcStage}
+            onClick={() => setActiveStage(activeStage === s.plcStage ? null : s.plcStage)}
+            style={{
+              textAlign: 'left', padding: '8px 12px', borderRadius: 6, border: 'none', cursor: 'pointer',
+              background: activeStage === s.plcStage ? `${s.color}18` : `${s.color}06`,
+              transition: 'all 0.2s'
+            }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: s.color }}>{s.plcStage}</span>
+              <span style={{ fontSize: 9, color: 'var(--text-sec)' }}>↔ {s.adopters} ({s.pct})</span>
+            </div>
+            {activeStage === s.plcStage && (
+              <div style={{ fontSize: 10, color: 'var(--text-primary)', marginTop: 4 }}>{s.desc}</div>
+            )}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ----- 1-3: Infrastructure Gap Between Takeoffs -----
+function TakeoffGapExplorer() {
+  const [selected, setSelected] = useState('PCs')
+
+  const industries = {
+    'PCs': { firmTakeoff: 3, salesTakeoff: 8, gap: 5, color: C.blue,
+      infra: 'Software ecosystem, retail distribution, user training, peripherals (printers, monitors)' },
+    'Autos': { firmTakeoff: 10, salesTakeoff: 20, gap: 10, color: C.orange,
+      infra: 'Roads, gas stations, repair shops, traffic laws, driver licensing, insurance' },
+    'Cell Phones': { firmTakeoff: 5, salesTakeoff: 10, gap: 5, color: C.gain,
+      infra: 'Cell towers, spectrum allocation, billing systems, handset retail' },
+    'EVs (Tesla)': { firmTakeoff: 8, salesTakeoff: 15, gap: 7, color: C.purple,
+      infra: 'Charging stations, battery recycling, grid capacity, service centers' }
+  }
+
+  const data = Object.entries(industries).map(([name, ind]) => ({
+    name,
+    'Firm Takeoff': ind.firmTakeoff,
+    'Gap': ind.gap,
+    color: ind.color
+  }))
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Between Firm Takeoff and Sales Takeoff</p>
+      <p style={subStyle}>The gap is where infrastructure, complementary products, and market legitimacy are built</p>
+
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 60, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis type="number" tick={labelStyle} label={{ value: 'Years After Commercialization', position: 'insideBottom', offset: -2, style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+          <YAxis type="category" dataKey="name" tick={{ fontSize: 9, fill: 'var(--text-sec)' }} width={60} />
+          <Tooltip contentStyle={tooltipStyle} formatter={(v, name) => [`${v} years`, name]} />
+          <Bar dataKey="Firm Takeoff" stackId="a" fill={C.blue} radius={[0, 0, 0, 0]} />
+          <Bar dataKey="Gap" stackId="a" fill={C.orange} radius={[0, 4, 4, 0]} />
+          <Legend wrapperStyle={{ fontSize: 9 }} />
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+        {Object.entries(industries).map(([name, ind]) => (
+          <button key={name} onClick={() => setSelected(name)}
+            style={{
+              flex: 1, minWidth: 80, padding: '6px 8px', borderRadius: 6, border: 'none',
+              cursor: 'pointer', fontSize: 9, textAlign: 'left',
+              background: selected === name ? `${ind.color}18` : 'var(--bg-secondary)',
+              outline: selected === name ? `2px solid ${ind.color}` : 'none',
+            }}>
+            <div style={{ fontWeight: 700, color: ind.color }}>{name}</div>
+          </button>
+        ))}
+      </div>
+
+      {selected && (
+        <div style={{
+          padding: '8px 12px', borderRadius: 6, marginTop: 6, fontSize: 10,
+          background: `${industries[selected].color}08`,
+          border: `1px solid ${industries[selected].color}20`,
+          color: 'var(--text-primary)'
+        }}>
+          <strong>Infrastructure needed:</strong> {industries[selected].infra}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ----- 1-4: Chasm Success Funnel -----
+function ChasmSuccessFunnel() {
+  const stages = [
+    { label: 'All Innovations', count: 100, color: C.blue },
+    { label: 'Reach Early Market', count: 100, color: C.purple },
+    { label: 'Gain Early Adopters', count: 80, color: C.teal },
+    { label: 'Cross the Chasm', count: 10, color: C.orange },
+    { label: 'Reach Mass Market', count: 8, color: C.gain },
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Innovation Success Funnel</p>
+      <p style={subStyle}>90% of innovations fail to cross the chasm between early adopters and mass market</p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '8px 0' }}>
+        {stages.map((s, i) => (
+          <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 60, fontSize: 9, color: 'var(--text-sec)', textAlign: 'right', flexShrink: 0 }}>
+              {s.count}%
+            </div>
+            <div style={{
+              height: 28, borderRadius: 6,
+              width: `${s.count}%`, minWidth: 60,
+              background: `${s.color}25`, border: `1px solid ${s.color}50`,
+              display: 'flex', alignItems: 'center', paddingLeft: 8,
+              transition: 'all 0.3s'
+            }}>
+              <span style={{ fontSize: 9, fontWeight: 600, color: s.color, whiteSpace: 'nowrap' }}>{s.label}</span>
+            </div>
+            {i === 2 && (
+              <div style={{
+                fontSize: 9, fontWeight: 700, color: C.loss,
+                padding: '2px 8px', borderRadius: 4, background: `${C.loss}15`,
+                whiteSpace: 'nowrap', flexShrink: 0
+              }}>
+                THE CHASM
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        marginTop: 8, padding: '8px 12px', borderRadius: 6,
+        background: `${C.loss}08`, border: `1px solid ${C.loss}20`,
+        fontSize: 10, color: 'var(--text-primary)'
+      }}>
+        <strong style={{ color: C.loss }}>Key insight:</strong> MVP works for early market, but you need a Total Product (core + augmented + ecosystem) to cross the chasm.
+      </div>
+    </div>
+  )
+}
+
+// ----- 1-5: Gains & Losses Bundle -----
+function GainsLossesBundle() {
+  const [activeProduct, setActiveProduct] = useState('physical')
+
+  const bundles = {
+    physical: {
+      name: 'Physical Bookstore',
+      color: C.blue,
+      gains: [
+        { label: 'Touch & browse books', value: 8 },
+        { label: 'Serendipity & discovery', value: 7 },
+        { label: 'Coffee shop atmosphere', value: 6 },
+        { label: 'Instant purchase', value: 5 },
+      ],
+      losses: [
+        { label: 'Higher prices', value: -7 },
+        { label: 'Travel required', value: -5 },
+        { label: 'Limited selection', value: -6 },
+      ]
+    },
+    online: {
+      name: 'Online Bookstore',
+      color: C.gain,
+      gains: [
+        { label: 'Lower prices', value: 8 },
+        { label: 'Massive selection', value: 9 },
+        { label: 'Home delivery', value: 7 },
+        { label: 'Reviews & recommendations', value: 6 },
+      ],
+      losses: [
+        { label: 'No tactile experience', value: -6 },
+        { label: 'No serendipity', value: -5 },
+        { label: 'Shipping wait time', value: -4 },
+      ]
+    }
+  }
+
+  const bundle = bundles[activeProduct]
+  const allItems = [
+    ...bundle.gains.map(g => ({ ...g, type: 'gain' })),
+    ...bundle.losses.map(l => ({ ...l, type: 'loss' }))
+  ]
+
+  const chartData = allItems.map(item => ({
+    name: item.label,
+    value: item.value,
+    fill: item.type === 'gain' ? C.gain : C.loss
+  }))
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Every Product is a Bundle of Gains & Losses</p>
+      <p style={subStyle}>Consumers evaluate trade-offs between gains and losses. Losses are felt 2.25x more intensely.</p>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+        {Object.entries(bundles).map(([key, b]) => (
+          <button key={key} onClick={() => setActiveProduct(key)}
+            style={{
+              flex: 1, padding: '8px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              background: activeProduct === key ? `${b.color}20` : 'var(--bg-secondary)',
+              outline: activeProduct === key ? `2px solid ${b.color}` : 'none',
+              fontSize: 10, fontWeight: 600, color: activeProduct === key ? b.color : 'var(--text-sec)'
+            }}>{b.name}</button>
+        ))}
+      </div>
+
+      <ResponsiveContainer width="100%" height={220}>
+        <BarChart data={chartData} layout="vertical" margin={{ top: 5, right: 20, left: 100, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis type="number" tick={labelStyle} domain={[-10, 10]} />
+          <YAxis type="category" dataKey="name" tick={{ fontSize: 8, fill: 'var(--text-sec)' }} width={95} />
+          <Tooltip contentStyle={tooltipStyle} formatter={v => [v > 0 ? `+${v} gain` : `${v} loss`, 'Psychological Value']} />
+          <ReferenceLine x={0} stroke="var(--text-sec)" />
+          <Bar dataKey="value" radius={[4, 4, 4, 4]}>
+            {chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div style={{ fontSize: 10, color: 'var(--text-sec)', marginTop: 4, textAlign: 'center', fontStyle: 'italic' }}>
+        Same product, different reference frame: analog camera firms saw digital as loss, electronics firms saw it as gain
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-1: Sustaining vs Disruptive Comparison -----
+function SustainingVsDisruptive() {
+  const [showDisruptive, setShowDisruptive] = useState(true)
+
+  const data = useMemo(() => {
+    const pts = []
+    for (let t = 0; t <= 30; t++) {
+      const sustaining = 20 + 70 * (1 / (1 + Math.exp(-0.2 * (t - 10))))
+      const disruptive = t < 8 ? 5 + t * 0.5 : 5 + (t - 8) * (t - 8) * 0.35 + 4
+      const mainstream = 50
+      pts.push({
+        t,
+        'Sustaining': Math.round(sustaining * 10) / 10,
+        'Disruptive': Math.round(Math.min(disruptive, 95) * 10) / 10,
+        'Mainstream Need': mainstream
+      })
+    }
+    return pts
+  }, [])
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Sustaining vs Disruptive Trajectories</p>
+      <p style={subStyle}>Disruptive technologies start lower but eventually cross the mainstream need threshold</p>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+        <button onClick={() => setShowDisruptive(!showDisruptive)}
+          style={{
+            padding: '6px 12px', borderRadius: 6, border: 'none', cursor: 'pointer',
+            background: showDisruptive ? `${C.loss}20` : 'var(--bg-secondary)',
+            color: showDisruptive ? C.loss : 'var(--text-sec)',
+            fontSize: 10, fontWeight: 600
+          }}>
+          {showDisruptive ? 'Hide' : 'Show'} Disruptive Trajectory
+        </button>
+      </div>
+
+      <ResponsiveContainer width="100%" height={260}>
+        <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="t" tick={labelStyle} label={{ value: 'Time', position: 'insideBottom', offset: -2, style: { fontSize: 10, fill: 'var(--text-sec)' } }} />
+          <YAxis tick={labelStyle} domain={[0, 100]} label={{ value: 'Performance', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Line type="monotone" dataKey="Sustaining" stroke={C.blue} strokeWidth={2.5} dot={false} />
+          {showDisruptive && (
+            <Line type="monotone" dataKey="Disruptive" stroke={C.loss} strokeWidth={2.5} dot={false} strokeDasharray="8 4" />
+          )}
+          <Line type="monotone" dataKey="Mainstream Need" stroke={C.slate} strokeWidth={1.5} dot={false} strokeDasharray="3 3" />
+          <Legend wrapperStyle={{ fontSize: 10 }} />
+        </LineChart>
+      </ResponsiveContainer>
+
+      <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+        <div style={{ flex: 1, padding: '6px 10px', borderRadius: 6, background: `${C.blue}10`, border: `1px solid ${C.blue}30` }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: C.blue }}>Sustaining</div>
+          <div style={{ fontSize: 8, color: 'var(--text-sec)' }}>Improves along existing performance axis. Incumbents excel here.</div>
+        </div>
+        {showDisruptive && (
+          <div style={{ flex: 1, padding: '6px 10px', borderRadius: 6, background: `${C.loss}10`, border: `1px solid ${C.loss}30` }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: C.loss }}>Disruptive</div>
+            <div style={{ fontSize: 8, color: 'var(--text-sec)' }}>New axis. Starts lower. Crossing point triggers disruption.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-2: Telegraph vs Telephone Coexistence -----
+function TelegraphTelephoneCoexistence() {
+  const data = [
+    { yr: 1850, Telegraph: 5, Telephone: 0 },
+    { yr: 1860, Telegraph: 15, Telephone: 0 },
+    { yr: 1877, Telegraph: 50, Telephone: 1 },
+    { yr: 1890, Telegraph: 65, Telephone: 5 },
+    { yr: 1900, Telegraph: 75, Telephone: 12 },
+    { yr: 1910, Telegraph: 80, Telephone: 25 },
+    { yr: 1920, Telegraph: 82, Telephone: 35 },
+    { yr: 1930, Telegraph: 70, Telephone: 45 },
+    { yr: 1940, Telegraph: 50, Telephone: 55 },
+    { yr: 1950, Telegraph: 30, Telephone: 70 },
+    { yr: 1970, Telegraph: 15, Telephone: 85 },
+    { yr: 1990, Telegraph: 5, Telephone: 92 },
+    { yr: 2013, Telegraph: 0, Telephone: 95 },
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Telegraph vs Telephone: 136 Years of Coexistence</p>
+      <p style={subStyle}>Disruption is glacially slow. The last telegram was sent in 2013.</p>
+
+      <ResponsiveContainer width="100%" height={240}>
+        <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <defs>
+            <linearGradient id="telGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={C.orange} stopOpacity={0.3} />
+              <stop offset="100%" stopColor={C.orange} stopOpacity={0.03} />
+            </linearGradient>
+            <linearGradient id="phoneGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={C.blue} stopOpacity={0.3} />
+              <stop offset="100%" stopColor={C.blue} stopOpacity={0.03} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="yr" tick={labelStyle} />
+          <YAxis tick={labelStyle} domain={[0, 100]} label={{ value: 'Relative Usage', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <ReferenceLine x={1877} stroke={C.purple} strokeDasharray="5 5"
+            label={{ value: 'Bell invents telephone (1877)', position: 'top', style: { fontSize: 8, fill: C.purple } }} />
+          <ReferenceLine x={1940} stroke={C.slate} strokeDasharray="5 5"
+            label={{ value: 'Phone > Telegraph (1940)', position: 'top', style: { fontSize: 8, fill: C.slate } }} />
+          <Area type="monotone" dataKey="Telegraph" stroke={C.orange} strokeWidth={2} fill="url(#telGrad)" />
+          <Area type="monotone" dataKey="Telephone" stroke={C.blue} strokeWidth={2} fill="url(#phoneGrad)" />
+          <Legend wrapperStyle={{ fontSize: 10 }} />
+        </AreaChart>
+      </ResponsiveContainer>
+
+      <div style={{ fontSize: 10, color: 'var(--text-sec)', marginTop: 6, textAlign: 'center', fontStyle: 'italic' }}>
+        63 years from invention to crossing point (1877 → 1940). Western Union survived by pivoting to money transfers.
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-3: Kodak Film vs Digital Revenue -----
+function KodakDigitalTimeline() {
+  const [activePhase, setActivePhase] = useState(null)
+
+  const phases = [
+    { name: 'Dominance', period: '1888-1975', color: C.blue,
+      desc: 'Kodak builds empire: 85% cameras, 90% film. Razor-blade model (cheap cameras, expensive film) creates massive recurring revenue.' },
+    { name: 'Invention', period: '1975', color: C.purple,
+      desc: 'Steve Sasson builds first digital camera at Kodak. CEO: "That\'s cute, but don\'t tell anyone." Internal knowledge of threat exists.' },
+    { name: 'Denial', period: '1975-1995', color: C.orange,
+      desc: 'Executives evaluate digital through film lens. Loss aversion dominates: potential loss of film cash cow outweighs uncertain digital gain.' },
+    { name: 'Decline', period: '1995-2012', color: C.loss,
+      desc: 'Film peaks ~2000, enters terminal decline. Sony, Canon, Nikon dominate digital. Kodak goes from $35B revenue to bankruptcy (2012).' }
+  ]
+
+  const data = [
+    { yr: 1975, Film: 90, Digital: 0 },
+    { yr: 1985, Film: 92, Digital: 1 },
+    { yr: 1995, Film: 88, Digital: 5 },
+    { yr: 2000, Film: 85, Digital: 15 },
+    { yr: 2003, Film: 60, Digital: 35 },
+    { yr: 2006, Film: 30, Digital: 55 },
+    { yr: 2009, Film: 10, Digital: 70 },
+    { yr: 2012, Film: 2, Digital: 80 },
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Kodak: Film vs Digital</p>
+      <p style={subStyle}>Kodak invented digital photography but couldn't cannibalize its own cash cow</p>
+
+      <ResponsiveContainer width="100%" height={220}>
+        <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="yr" tick={labelStyle} />
+          <YAxis tick={labelStyle} domain={[0, 100]} label={{ value: '% Market', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Area type="monotone" dataKey="Film" stroke={C.orange} strokeWidth={2} fill={`${C.orange}20`} />
+          <Area type="monotone" dataKey="Digital" stroke={C.blue} strokeWidth={2} fill={`${C.blue}20`} />
+          <Legend wrapperStyle={{ fontSize: 10 }} />
+        </AreaChart>
+      </ResponsiveContainer>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
+        {phases.map(p => (
+          <button key={p.name}
+            onClick={() => setActivePhase(activePhase === p.name ? null : p.name)}
+            style={{
+              textAlign: 'left', padding: '8px 12px', borderRadius: 6, border: 'none', cursor: 'pointer',
+              background: activePhase === p.name ? `${p.color}18` : `${p.color}06`,
+              transition: 'all 0.2s'
+            }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: p.color }}>{p.name}</span>
+              <span style={{ fontSize: 9, color: 'var(--text-sec)' }}>{p.period}</span>
+            </div>
+            {activePhase === p.name && (
+              <div style={{ fontSize: 10, color: 'var(--text-primary)', marginTop: 4 }}>{p.desc}</div>
+            )}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-3: Steel Mini Mills Bottom-Up Disruption -----
+function SteelDisruption() {
+  const [activeSegment, setActiveSegment] = useState(null)
+
+  const segments = [
+    { name: 'Rebar', year: '1960s', margin: 'Low', color: C.slate,
+      desc: 'Bottom of market. Integrated mills gladly ceded this: low margin, commodity product. Mini mills operated on $30-50M investment.' },
+    { name: 'Wire Rod', year: '1970s', margin: 'Low-Med', color: C.blue,
+      desc: 'Mini mills improved quality, moved up. Still low enough margin that integrated mills didn\'t fight back.' },
+    { name: 'Structural Steel', year: '1980s', margin: 'Medium', color: C.orange,
+      desc: 'Significant market. Integrated mills started feeling pressure but were too late to respond cost-effectively.' },
+    { name: 'Sheet Steel', year: '1990s', margin: 'High', color: C.loss,
+      desc: 'Core market of integrated mills. By now Nucor and Steel Dynamics had capability. Bethlehem Steel declared bankruptcy.' }
+  ]
+
+  const data = segments.map(s => ({
+    name: s.name,
+    'Mini Mill Share': segments.indexOf(s) === 0 ? 95 : segments.indexOf(s) === 1 ? 75 : segments.indexOf(s) === 2 ? 55 : 40,
+    color: s.color
+  }))
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Steel Mini Mills: Bottom-Up Disruption</p>
+      <p style={subStyle}>Mini mills started at the lowest market segment and moved up, capturing share at each level</p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {segments.map((s, i) => (
+          <button key={s.name}
+            onClick={() => setActiveSegment(activeSegment === s.name ? null : s.name)}
+            style={{
+              textAlign: 'left', padding: '10px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              background: activeSegment === s.name ? `${s.color}20` : `${s.color}08`,
+              outline: activeSegment === s.name ? `2px solid ${s.color}` : 'none',
+              transition: 'all 0.2s'
+            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{
+                fontSize: 14, width: 20, textAlign: 'center',
+                color: s.color
+              }}>{'↑'.repeat(i + 1)}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-primary)' }}>
+                  {s.name} <span style={{ fontSize: 9, color: 'var(--text-sec)', fontWeight: 400 }}>({s.year})</span>
+                </div>
+                <div style={{ fontSize: 9, color: s.color }}>Margin: {s.margin}</div>
+              </div>
+            </div>
+            {activeSegment === s.name && (
+              <div style={{ fontSize: 10, color: 'var(--text-primary)', marginTop: 6, paddingLeft: 28 }}>
+                {s.desc}
+              </div>
+            )}
+          </button>
+        ))}
+      </div>
+
+      <div style={{
+        marginTop: 10, padding: '8px 12px', borderRadius: 6,
+        background: `${C.loss}08`, border: `1px solid ${C.loss}20`,
+        fontSize: 10, color: 'var(--text-primary)'
+      }}>
+        <strong style={{ color: C.loss }}>Pattern:</strong> Incumbents ignore bottom-market disruption because it seems unprofitable at scale. By the time mini mills move upmarket, it's too late.
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-4: Organizational Evolution Stages -----
+function OrgEvolutionStages() {
+  const [activeStage, setActiveStage] = useState(null)
+
+  const stages = [
+    { name: 'Resources', color: C.blue, icon: '💰',
+      desc: 'Founders bring capital, ideas, drive. Organization is flexible and adaptive. Few constraints.',
+      rigidity: 'Low — easy to pivot and change direction' },
+    { name: 'Processes', color: C.orange, icon: '⚙️',
+      desc: 'Systems, workflows, routines are built to handle growing complexity. "How we do things" starts to solidify.',
+      rigidity: 'Medium — processes create predictability but limit experimentation' },
+    { name: 'Structure', color: C.purple, icon: '🏢',
+      desc: 'Hierarchy, departments, reporting lines emerge. Fiefdoms develop, defending budgets and authority.',
+      rigidity: 'High — structural changes require reorganization, political capital' },
+    { name: 'Culture', color: C.gain, icon: '🧬',
+      desc: 'Values, norms, identity solidify. "This is who we are." The most powerful and hardest to change.',
+      rigidity: 'Very High — cultural change takes years, often requires leadership change' }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Organizational Evolution → Rigidity</p>
+      <p style={subStyle}>The same progression that enables success eventually blocks innovation</p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {stages.map((s, i) => (
+          <div key={s.name}>
+            <button
+              onClick={() => setActiveStage(activeStage === s.name ? null : s.name)}
+              style={{
+                width: '100%', textAlign: 'left', padding: '10px 14px', borderRadius: 8,
+                border: 'none', cursor: 'pointer',
+                background: activeStage === s.name ? `${s.color}20` : `${s.color}08`,
+                outline: activeStage === s.name ? `2px solid ${s.color}` : 'none',
+                transition: 'all 0.2s'
+              }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontSize: 16 }}>{s.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-primary)' }}>Stage {i + 1}: {s.name}</div>
+                  <div style={{ fontSize: 9, color: s.color }}>{s.rigidity}</div>
+                </div>
+                <div style={{
+                  width: `${25 + i * 25}%`, height: 6, borderRadius: 3,
+                  background: `${s.color}40`, maxWidth: 100
+                }} />
+              </div>
+              {activeStage === s.name && (
+                <div style={{ fontSize: 10, color: 'var(--text-primary)', marginTop: 8, paddingLeft: 34 }}>
+                  {s.desc}
+                </div>
+              )}
+            </button>
+            {i < stages.length - 1 && (
+              <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-sec)', padding: '2px 0' }}>↓</div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        marginTop: 10, padding: '8px 12px', borderRadius: 6,
+        background: 'var(--bg-secondary)', border: '1px solid var(--border-color)',
+        fontSize: 10, color: 'var(--text-primary)', textAlign: 'center'
+      }}>
+        <strong>Paradox:</strong> Innovation requires changing processes, structure, and culture. But organizations resist changing the very things that enabled their success.
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-4: Ecosystem Risk Calculator -----
+function EcosystemRiskCalculator() {
+  const [partnerCount, setPartnerCount] = useState(4)
+  const [partnerProb, setPartnerProb] = useState(90)
+
+  const totalProb = Math.pow(partnerProb / 100, partnerCount) * 100
+
+  const data = useMemo(() => {
+    const pts = []
+    for (let n = 1; n <= 8; n++) {
+      pts.push({
+        partners: n,
+        probability: Math.round(Math.pow(partnerProb / 100, n) * 1000) / 10
+      })
+    }
+    return pts
+  }, [partnerProb])
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Ecosystem Risk: Joint Probability Calculator</p>
+      <p style={subStyle}>Each ecosystem partner dependency dramatically decreases total success probability</p>
+
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 12 }}>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          Partners: <strong>{partnerCount}</strong>
+          <input type="range" min="1" max="8" step="1" value={partnerCount}
+            onChange={e => setPartnerCount(+e.target.value)}
+            style={{ display: 'block', width: 160, accentColor: C.blue }} />
+        </label>
+        <label style={{ fontSize: 11, color: 'var(--text-primary)' }}>
+          Each partner success: <strong>{partnerProb}%</strong>
+          <input type="range" min="50" max="99" step="1" value={partnerProb}
+            onChange={e => setPartnerProb(+e.target.value)}
+            style={{ display: 'block', width: 160, accentColor: C.purple }} />
+        </label>
+      </div>
+
+      <div style={{
+        padding: '10px 14px', borderRadius: 8, marginBottom: 12, textAlign: 'center',
+        background: totalProb > 70 ? `${C.gain}15` : totalProb > 40 ? `${C.orange}15` : `${C.loss}15`,
+        border: `1px solid ${totalProb > 70 ? C.gain : totalProb > 40 ? C.orange : C.loss}30`
+      }}>
+        <div style={{ fontSize: 9, color: 'var(--text-sec)' }}>Total Success Probability</div>
+        <div style={{
+          fontSize: 22, fontWeight: 800,
+          color: totalProb > 70 ? C.gain : totalProb > 40 ? C.orange : C.loss
+        }}>
+          {totalProb.toFixed(1)}%
+        </div>
+        <div style={{ fontSize: 9, color: 'var(--text-sec)' }}>
+          {partnerProb}%{' '}
+          {Array(partnerCount).fill(`× ${partnerProb}%`).slice(1).join(' ')}
+          {' = '}{totalProb.toFixed(1)}%
+        </div>
+      </div>
+
+      <ResponsiveContainer width="100%" height={180}>
+        <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="partners" tick={labelStyle} label={{ value: 'Number of Partners', position: 'insideBottom', offset: -2, style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+          <YAxis tick={labelStyle} domain={[0, 100]} label={{ value: 'Success %', angle: -90, position: 'insideLeft', style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} formatter={v => [`${v}%`, 'Success Probability']} />
+          <Bar dataKey="probability" radius={[4, 4, 0, 0]}>
+            {data.map((d, i) => (
+              <Cell key={i} fill={i + 1 === partnerCount ? C.purple : d.probability > 70 ? C.gain : d.probability > 40 ? C.orange : C.loss} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
+// ----- 2-5: Three Components of Successful Disruption -----
+function DisruptionComponents() {
+  const [activeComponent, setActiveComponent] = useState(null)
+
+  const components = [
+    {
+      name: 'Simplifying Technology',
+      color: C.blue, icon: '🔧',
+      desc: 'Eliminates complexity, enables non-consumption. Example: one-button blood pressure monitor replaced nurse-measured testing.',
+      examples: ['Blood pressure monitors', 'Home pregnancy tests', 'TurboTax', 'Point-and-shoot cameras']
+    },
+    {
+      name: 'Business Model Innovation',
+      color: C.orange, icon: '💡',
+      desc: 'Changes how value is captured. Example: Netflix subscription vs. Blockbuster per-rental payment.',
+      examples: ['Netflix subscription', 'Freemium apps', 'SaaS pricing', 'Dollar Shave Club']
+    },
+    {
+      name: 'Ecosystem Design',
+      color: C.gain, icon: '🌐',
+      desc: 'Complementary products, channels, infrastructure must support the disruption. Example: Tesla vertical integration of batteries + charging network.',
+      examples: ['Tesla Supercharger network', 'App Store for iPhone', 'USB standard', 'Android open ecosystem']
+    }
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Three Components of Successful Disruption</p>
+      <p style={subStyle}>All three must work together. Missing any one causes failure.</p>
+
+      <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
+        {components.map(comp => (
+          <button key={comp.name}
+            onClick={() => setActiveComponent(activeComponent === comp.name ? null : comp.name)}
+            style={{
+              flex: 1, minWidth: 90, padding: '10px 8px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              background: activeComponent === comp.name ? `${comp.color}20` : `${comp.color}08`,
+              outline: activeComponent === comp.name ? `2px solid ${comp.color}` : 'none',
+              transition: 'all 0.2s', textAlign: 'center'
+            }}>
+            <div style={{ fontSize: 18 }}>{comp.icon}</div>
+            <div style={{ fontSize: 9, fontWeight: 700, color: comp.color, marginTop: 4 }}>{comp.name}</div>
+          </button>
+        ))}
+      </div>
+
+      {activeComponent && (() => {
+        const comp = components.find(c => c.name === activeComponent)
+        return (
+          <div style={{
+            padding: '12px 14px', borderRadius: 8,
+            background: `${comp.color}08`, border: `1px solid ${comp.color}25`
+          }}>
+            <div style={{ fontSize: 10, color: 'var(--text-primary)', marginBottom: 8 }}>{comp.desc}</div>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+              {comp.examples.map(ex => (
+                <span key={ex} style={{
+                  fontSize: 8, padding: '3px 8px', borderRadius: 4,
+                  background: `${comp.color}15`, color: comp.color, fontWeight: 600
+                }}>{ex}</span>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
+
+      <div style={{
+        marginTop: 10, padding: '8px 12px', borderRadius: 6,
+        background: `${C.loss}08`, border: `1px solid ${C.loss}20`,
+        fontSize: 10, color: 'var(--text-primary)', textAlign: 'center'
+      }}>
+        Simplifying tech without business model = failed startup. Business model without tech = unsustainable. Either without ecosystem = incomplete.
+      </div>
+    </div>
+  )
+}
+
+// ----- 2-6: PC Commoditization Value Shift -----
+function PCValueShift() {
+  const [activeView, setActiveView] = useState('after')
+
+  const before = [
+    { name: 'IBM (Hardware)', value: 70, color: C.blue },
+    { name: 'Intel (CPU)', value: 15, color: C.orange },
+    { name: 'Microsoft (OS)', value: 10, color: C.purple },
+    { name: 'Others', value: 5, color: C.slate }
+  ]
+
+  const after = [
+    { name: 'IBM (Hardware)', value: 10, color: C.blue },
+    { name: 'Intel (CPU)', value: 35, color: C.orange },
+    { name: 'Microsoft (OS)', value: 35, color: C.purple },
+    { name: 'Dell/Compaq', value: 12, color: C.teal },
+    { name: 'Others', value: 8, color: C.slate }
+  ]
+
+  const data = activeView === 'before' ? before : after
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>PC Industry: Value Capture Shift</p>
+      <p style={subStyle}>IBM outsourced CPUs and OS, and profit pools shifted to Intel and Microsoft</p>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+        <button onClick={() => setActiveView('before')}
+          style={{
+            flex: 1, padding: '8px', borderRadius: 6, border: 'none', cursor: 'pointer',
+            background: activeView === 'before' ? `${C.blue}20` : 'var(--bg-secondary)',
+            color: activeView === 'before' ? C.blue : 'var(--text-sec)',
+            fontSize: 10, fontWeight: 600
+          }}>1981-1985: IBM Dominant</button>
+        <button onClick={() => setActiveView('after')}
+          style={{
+            flex: 1, padding: '8px', borderRadius: 6, border: 'none', cursor: 'pointer',
+            background: activeView === 'after' ? `${C.orange}20` : 'var(--bg-secondary)',
+            color: activeView === 'after' ? C.orange : 'var(--text-sec)',
+            fontSize: 10, fontWeight: 600
+          }}>1990s: Commoditized</button>
+      </div>
+
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis dataKey="name" tick={{ fontSize: 8, fill: 'var(--text-sec)' }} angle={-10} />
+          <YAxis tick={labelStyle} domain={[0, 80]} label={{ value: '% of Profit Pool', angle: -90, position: 'insideLeft', style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+          <Tooltip contentStyle={tooltipStyle} formatter={v => [`${v}%`, 'Profit Share']} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {data.map((d, i) => <Cell key={i} fill={d.color} />)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div style={{
+        marginTop: 8, padding: '8px 12px', borderRadius: 6,
+        background: `${C.loss}08`, border: `1px solid ${C.loss}20`,
+        fontSize: 10, color: 'var(--text-primary)'
+      }}>
+        <strong style={{ color: C.loss }}>Commoditization trap:</strong> IBM enabled ecosystem viability by outsourcing, but lost control of where value accumulated. Component makers (Intel, Microsoft) captured the profits.
+      </div>
+    </div>
+  )
+}
+
+// ----- 3-1: Open vs Closed Innovation (moved to Closed Innovation section) -----
+// Already exists: OpenVsClosedInnovation — will be assigned to earlier section
+
+// ----- 3-2: Pharma Value Chain Before/After -----
+function PharmaValueChain() {
+  const [view, setView] = useState('today')
+
+  const integrated = [
+    { step: 'Drug Discovery', owner: 'Big Pharma', color: C.blue },
+    { step: 'Preclinical Testing', owner: 'Big Pharma', color: C.blue },
+    { step: 'Clinical Trials', owner: 'Big Pharma', color: C.blue },
+    { step: 'Manufacturing', owner: 'Big Pharma', color: C.blue },
+    { step: 'Regulatory Approval', owner: 'Big Pharma', color: C.blue },
+    { step: 'Marketing & Sales', owner: 'Big Pharma', color: C.blue },
+  ]
+
+  const disintegrated = [
+    { step: 'Drug Discovery', owner: 'Biotech Startups', color: C.purple },
+    { step: 'Preclinical Testing', owner: 'CROs', color: C.orange },
+    { step: 'Clinical Trials', owner: 'CROs', color: C.orange },
+    { step: 'Manufacturing', owner: 'CMOs', color: C.teal },
+    { step: 'Regulatory Approval', owner: 'Big Pharma', color: C.blue },
+    { step: 'Marketing & Sales', owner: 'Big Pharma', color: C.blue },
+  ]
+
+  const chain = view === 'integrated' ? integrated : disintegrated
+
+  const ownerColors = {}
+  chain.forEach(s => { ownerColors[s.owner] = s.color })
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Pharma Value Chain: Integration → Specialization</p>
+      <p style={subStyle}>20th century pharma did everything internally. Today: specialists at each stage.</p>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+        <button onClick={() => setView('integrated')}
+          style={{
+            flex: 1, padding: '8px', borderRadius: 6, border: 'none', cursor: 'pointer',
+            background: view === 'integrated' ? `${C.blue}20` : 'var(--bg-secondary)',
+            color: view === 'integrated' ? C.blue : 'var(--text-sec)',
+            fontSize: 10, fontWeight: 600
+          }}>20th Century: Integrated</button>
+        <button onClick={() => setView('today')}
+          style={{
+            flex: 1, padding: '8px', borderRadius: 6, border: 'none', cursor: 'pointer',
+            background: view === 'today' ? `${C.purple}20` : 'var(--bg-secondary)',
+            color: view === 'today' ? C.purple : 'var(--text-sec)',
+            fontSize: 10, fontWeight: 600
+          }}>Today: Disintegrated</button>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {chain.map((step, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{
+              flex: 1, padding: '8px 12px', borderRadius: 6,
+              background: `${step.color}12`, border: `1px solid ${step.color}30`,
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+            }}>
+              <span style={{ fontSize: 10, color: 'var(--text-primary)', fontWeight: 600 }}>{step.step}</span>
+              <span style={{ fontSize: 9, color: step.color, fontWeight: 700 }}>{step.owner}</span>
+            </div>
+            {i < chain.length - 1 && <span style={{ fontSize: 10, color: 'var(--text-sec)', flexShrink: 0, width: 10 }} />}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, marginTop: 10, flexWrap: 'wrap' }}>
+        {Object.entries(ownerColors).map(([owner, color]) => (
+          <span key={owner} style={{
+            fontSize: 8, padding: '3px 8px', borderRadius: 4,
+            background: `${color}15`, color, fontWeight: 600
+          }}>{owner}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ----- 3-3: Patent Effectiveness by Industry Chart -----
+function PatentEffectivenessChart() {
+  const data = [
+    { industry: 'Pharma/Chemical', effectiveness: 82, color: C.gain },
+    { industry: 'Semiconductors', effectiveness: 50, color: C.blue },
+    { industry: 'Software', effectiveness: 40, color: C.purple },
+    { industry: 'Textiles', effectiveness: 22, color: C.orange },
+    { industry: 'Business Services', effectiveness: 15, color: C.slate },
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Patent Effectiveness by Industry</p>
+      <p style={subStyle}>Carnegie Mellon survey: % of firms relying heavily on patents. Varies dramatically by industry.</p>
+
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 80, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+          <XAxis type="number" tick={labelStyle} domain={[0, 100]}
+            label={{ value: '% Firms Relying on Patents', position: 'insideBottom', offset: -2, style: { fontSize: 9, fill: 'var(--text-sec)' } }} />
+          <YAxis type="category" dataKey="industry" tick={{ fontSize: 9, fill: 'var(--text-sec)' }} width={75} />
+          <Tooltip contentStyle={tooltipStyle} formatter={v => [`${v}%`, 'Patent Effectiveness']} />
+          <Bar dataKey="effectiveness" radius={[0, 4, 4, 0]}>
+            {data.map((d, i) => <Cell key={i} fill={d.color} />)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div style={{
+        marginTop: 8, padding: '8px 12px', borderRadius: 6,
+        background: 'var(--bg-secondary)', border: '1px solid var(--border-color)',
+        fontSize: 10, color: 'var(--text-primary)'
+      }}>
+        <strong>Implication:</strong> Patents are primary in pharma (discrete chemical formulas). In electronics, brand + ecosystem matter more. In software, network effects + switching costs dominate.
+      </div>
+    </div>
+  )
+}
+
+// ----- 3-3: Value Capture Framework -----
+function ValueCaptureFramework() {
+  const [activeItem, setActiveItem] = useState(null)
+
+  const items = [
+    { category: 'Legal Mechanisms', entries: [
+      { name: 'Patents', color: C.blue, desc: '20-year legal monopoly on functional innovations. Strong in pharma, weaker in software.' },
+      { name: 'Trade Secrets', color: C.teal, desc: 'Confidential, indefinite protection. Lost if disclosed. Coca-Cola formula, Google algorithm.' },
+      { name: 'Trademarks', color: C.purple, desc: 'Brand protection. Identifies source. Indefinite duration with continued use.' },
+      { name: 'Copyrights', color: C.indigo, desc: 'Creative work protection. Software code, documentation. Life + 70 years.' },
+    ]},
+    { category: 'Strategic Mechanisms', entries: [
+      { name: 'First-Mover', color: C.orange, desc: 'Early entry advantages: customer lock-in, learning curve, brand recognition.' },
+      { name: 'Network Effects', color: C.gain, desc: 'Value increases with users. Facebook, Uber, credit cards. Creates natural monopoly.' },
+      { name: 'Switching Costs', color: C.loss, desc: 'Cost to change suppliers. Enterprise software, cloud platforms. Locks in customers.' },
+      { name: 'Brand & Reputation', color: C.pink, desc: 'Trust built over time. Difficult to replicate. Apple, Toyota, McKinsey.' },
+    ]}
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Value Capture: Legal & Strategic Mechanisms</p>
+      <p style={subStyle}>Firms combine multiple mechanisms to protect value created through innovation</p>
+
+      {items.map(cat => (
+        <div key={cat.category} style={{ marginBottom: 10 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-sec)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>
+            {cat.category}
+          </div>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+            {cat.entries.map(e => (
+              <button key={e.name}
+                onClick={() => setActiveItem(activeItem === e.name ? null : e.name)}
+                style={{
+                  flex: 1, minWidth: 70, padding: '6px 8px', borderRadius: 6, border: 'none', cursor: 'pointer',
+                  background: activeItem === e.name ? `${e.color}20` : `${e.color}08`,
+                  outline: activeItem === e.name ? `2px solid ${e.color}` : 'none',
+                  transition: 'all 0.2s'
+                }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: e.color }}>{e.name}</div>
+              </button>
+            ))}
+          </div>
+          {cat.entries.filter(e => e.name === activeItem).map(e => (
+            <div key={e.name} style={{
+              marginTop: 4, padding: '8px 12px', borderRadius: 6,
+              background: `${e.color}08`, border: `1px solid ${e.color}20`,
+              fontSize: 10, color: 'var(--text-primary)'
+            }}>
+              {e.desc}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// ----- 3-4: Make/Buy/Sell Decision Framework -----
+function MakeBuySellFramework() {
+  const [scores, setScores] = useState({
+    breadth: 3, integrationCost: 3, assets: 3, coreCompetency: 3, timing: 3
+  })
+
+  const dims = [
+    { key: 'breadth', label: 'Application Breadth', makeHint: 'Broad → Make', sellHint: 'Narrow → Sell' },
+    { key: 'integrationCost', label: 'Integration Cost', makeHint: 'Low → Make', sellHint: 'High → Buy/Sell' },
+    { key: 'assets', label: 'Have Specialized Assets?', makeHint: 'Yes → Make', sellHint: 'No → Buy/Sell' },
+    { key: 'coreCompetency', label: 'Core Competency Fit', makeHint: 'Core → Make', sellHint: 'Adjacent → Buy' },
+    { key: 'timing', label: 'Time Available', makeHint: 'Plenty → Make', sellHint: 'Urgent → Buy' },
+  ]
+
+  const avg = Object.values(scores).reduce((a, b) => a + b, 0) / Object.values(scores).length
+  const recommendation = avg >= 3.5 ? { label: 'MAKE', color: C.gain, desc: 'Develop internally — you have the assets, time, and it fits core competency.' }
+    : avg >= 2 ? { label: 'BUY / PARTNER', color: C.orange, desc: 'Partner with or acquire from external specialists — faster and more capital-efficient.' }
+    : { label: 'SELL / LICENSE', color: C.purple, desc: 'License to others or sell — you lack assets for commercialization, better to specialize.' }
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Make, Buy, or Sell: Decision Framework</p>
+      <p style={subStyle}>Adjust each dimension to see the strategic recommendation</p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
+        {dims.map(d => (
+          <div key={d.key}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, marginBottom: 2 }}>
+              <span style={{ color: C.purple }}>{d.sellHint}</span>
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{d.label}</span>
+              <span style={{ color: C.gain }}>{d.makeHint}</span>
+            </div>
+            <input type="range" min="1" max="5" step="1" value={scores[d.key]}
+              onChange={e => setScores(prev => ({ ...prev, [d.key]: +e.target.value }))}
+              style={{ width: '100%', accentColor: scores[d.key] >= 3.5 ? C.gain : scores[d.key] >= 2 ? C.orange : C.purple }} />
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        padding: '12px 16px', borderRadius: 8, textAlign: 'center',
+        background: `${recommendation.color}15`, border: `2px solid ${recommendation.color}40`
+      }}>
+        <div style={{ fontSize: 9, color: 'var(--text-sec)' }}>Recommendation</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: recommendation.color }}>{recommendation.label}</div>
+        <div style={{ fontSize: 10, color: 'var(--text-primary)', marginTop: 4 }}>{recommendation.desc}</div>
+      </div>
+    </div>
+  )
+}
+
+// ----- 3-5: Strategic Assessment Tool -----
+function StrategicAssessmentTool() {
+  const [integration, setIntegration] = useState(3)
+  const [ipStrength, setIpStrength] = useState(3)
+  const [externalAccess, setExternalAccess] = useState(3)
+
+  const getAssessment = () => {
+    if (integration <= 2 && ipStrength <= 2 && externalAccess <= 2)
+      return { label: 'Vulnerable', color: C.loss, desc: 'Disintegrated with weak IP and isolated from ecosystems. Competitors can copy freely.' }
+    if (integration >= 4 && ipStrength >= 4 && externalAccess >= 4)
+      return { label: 'Innovation Leader', color: C.gain, desc: 'Strong integration on core, strong IP, deeply embedded in ecosystem. Optimal positioning.' }
+    if (ipStrength >= 4 && externalAccess >= 4)
+      return { label: 'Flexible Innovator', color: C.blue, desc: 'Strong IP + external partnerships. Can specialize and participate in technology markets.' }
+    if (integration >= 4 && ipStrength <= 2)
+      return { label: 'Capital Intensive', color: C.orange, desc: 'Highly integrated but weak IP. Must control full value chain to prevent copying.' }
+    return { label: 'Mixed Position', color: C.purple, desc: 'Moderate positioning. Review make/buy decisions and invest in IP where gaps exist.' }
+  }
+
+  const assessment = getAssessment()
+
+  const dims = [
+    { key: 'integration', value: integration, set: setIntegration, label: 'Integration Strategy',
+      low: 'Buy Everything', high: 'Make Everything', color: C.blue },
+    { key: 'ipStrength', value: ipStrength, set: setIpStrength, label: 'IP Strength',
+      low: 'Weak IP', high: 'Strong Patents', color: C.orange },
+    { key: 'externalAccess', value: externalAccess, set: setExternalAccess, label: 'External Knowledge',
+      low: 'Isolated', high: 'Ecosystem Embedded', color: C.gain },
+  ]
+
+  return (
+    <div style={cardStyle}>
+      <p style={headingStyle}>Strategic Assessment: 3-Dimension Tool</p>
+      <p style={subStyle}>Plot your firm across integration, IP, and ecosystem dimensions</p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 12 }}>
+        {dims.map(d => (
+          <div key={d.key}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, marginBottom: 2 }}>
+              <span style={{ color: 'var(--text-sec)' }}>{d.low}</span>
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{d.label}: {d.value}/5</span>
+              <span style={{ color: d.color }}>{d.high}</span>
+            </div>
+            <input type="range" min="1" max="5" step="1" value={d.value}
+              onChange={e => d.set(+e.target.value)}
+              style={{ width: '100%', accentColor: d.color }} />
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        padding: '14px 16px', borderRadius: 8, textAlign: 'center',
+        background: `${assessment.color}12`, border: `2px solid ${assessment.color}40`
+      }}>
+        <div style={{ fontSize: 9, color: 'var(--text-sec)', textTransform: 'uppercase', letterSpacing: 1 }}>Assessment</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: assessment.color, margin: '4px 0' }}>{assessment.label}</div>
+        <div style={{ fontSize: 10, color: 'var(--text-primary)' }}>{assessment.desc}</div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, marginTop: 10, flexWrap: 'wrap' }}>
+        {dims.map(d => (
+          <div key={d.key} style={{
+            flex: 1, minWidth: 80, padding: '6px 8px', borderRadius: 6,
+            background: `${d.color}08`, border: `1px solid ${d.color}20`, textAlign: 'center'
+          }}>
+            <div style={{ fontSize: 16, fontWeight: 800, color: d.color }}>{d.value}</div>
+            <div style={{ fontSize: 8, color: 'var(--text-sec)' }}>{d.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ===== Export map =====
 const visualMap = {
   // Lecture 1-1
   's-curve-explorer': SCurveExplorer,
   'adoption-bell-curve': AdoptionBellCurve,
   'takeoff-visualizer': TakeoffVisualizer,
+  'innovation-drivers-loop': InnovationDriversLoop,
   // Lecture 1-2
   'plc-explorer': PLCExplorer,
   'growth-vs-maturity': GrowthVsMaturity,
   'sales-takeoff-timeline': SalesTakeoffTimeline,
+  'historical-plc-chart': HistoricalPLCChart,
+  'plc-adoption-mapping': PLCAdoptionMapping,
   // Lecture 1-3
   'firm-life-cycle': FirmLifeCycleExplorer,
   'firm-vs-sales-takeoff': FirmVsSalesTakeoff,
   'patent-to-commercialization': PatentToCommercialization,
+  'takeoff-gap-explorer': TakeoffGapExplorer,
   // Lecture 1-4
   'chasm-visualization': ChasmVisualization,
   'bowling-alley': BowlingAlleyStrategy,
   'mvp-vs-total-product': MVPvsTotalProduct,
+  'chasm-success-funnel': ChasmSuccessFunnel,
   // Lecture 1-5
   'prospect-value-function': ProspectValueFunction,
   'diminishing-sensitivity': DiminishingSensitivity,
   'loss-aversion': LossAversionDemo,
   'nine-x-effect': NineXEffect,
+  'gains-losses-bundle': GainsLossesBundle,
   // Lecture 2-1
   'disruption-trajectory': DisruptionTrajectory,
+  'sustaining-vs-disruptive': SustainingVsDisruptive,
   // Lecture 2-2
   'disruption-timeline': DisruptionTimeline,
+  'telegraph-telephone-coexistence': TelegraphTelephoneCoexistence,
   // Lecture 2-3
   'cannibalization-dilemma': CannibalizationDilemma,
+  'kodak-digital-timeline': KodakDigitalTimeline,
+  'steel-disruption': SteelDisruption,
   // Lecture 2-4
   'innovation-framework': InnovationFramework,
+  'org-evolution-stages': OrgEvolutionStages,
+  'ecosystem-risk-calculator': EcosystemRiskCalculator,
   // Lecture 2-5
   'retail-evolution': RetailEvolution,
+  'disruption-components': DisruptionComponents,
   // Lecture 2-6
   'ibm-timeline': IBMTimeline,
+  'pc-value-shift': PCValueShift,
+  // Module 3
+  'open-vs-closed-innovation': OpenVsClosedInnovation,
+  'technology-market-flow': TechnologyMarketFlow,
+  'value-chain-explorer': ValueChainExplorer,
+  'apple-vs-samsung': AppleVsSamsung,
+  'value-capture-mechanisms': ValueCaptureMechanisms,
+  'ip-economics': IPEconomics,
+  'discrete-vs-complex': DiscreteVsComplex,
+  'tech-vs-product-market': TechVsProductMarket,
+  'moderna-vs-biontech': ModernaVsBiontech,
+  'module3-concept-map': Module3ConceptMap,
+  'pharma-value-chain': PharmaValueChain,
+  'patent-effectiveness-chart': PatentEffectivenessChart,
+  'value-capture-framework': ValueCaptureFramework,
+  'make-buy-sell-framework': MakeBuySellFramework,
+  'strategic-assessment-tool': StrategicAssessmentTool,
 }
 
 export default function InteractiveVisual({ type }) {
