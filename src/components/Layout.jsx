@@ -86,11 +86,13 @@ export default function Layout({ children }) {
                     opacity: hasLectures ? 1 : 0.5,
                   }}
                 >
-                  {hasLectures ? (
-                    isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />
-                  ) : (
-                    <Lock size={10} />
-                  )}
+                  <span className="w-3 flex items-center justify-center shrink-0">
+                    {hasLectures ? (
+                      isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />
+                    ) : (
+                      <Lock size={10} />
+                    )}
+                  </span>
                   <span className="truncate">M{m.id}: {m.title}</span>
                 </button>
 
